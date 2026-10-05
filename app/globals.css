@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Raw Business, Gen Z edition. White ground, loud colour, no dark sections.
+   paper  #FFFFFF   ground
+   ink    #17132E   text only (deep violet, never a background)
+   pink   #FF3EA5   brand, primary actions
+   blue   #2D5BFF   links, selected states
+   lime   #C6F432   stickers, highlights
+   sun    #FFD43B   stickers, sale
+   orange #FF7A2F   accents
+   lilac  #B9A4FF   soft panels                                   */
+@theme {
+  --color-paper: #ffffff;
+  --color-ink: #17132e;
+  --color-stone: #6b6880;
+  --color-line: #ebe8f2;
+  --color-mist: #f6f4fb;
+  --color-pink: #ff3ea5;
+  --color-blue: #2d5bff;
+  --color-lime: #c6f432;
+  --color-sun: #ffd43b;
+  --color-orange: #ff7a2f;
+  --color-lilac: #b9a4ff;
+  --color-gulabi: #ff3ea5;
+  --font-sans: var(--font-bricolage), "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Chunky display cut */
+.display {
+  font-variation-settings: "opsz" 96, "wdth" 85;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+}
+
+/* Sticker: rotated pill with a coloured offset shadow */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  border-radius: 999px;
+  padding: .45em .95em;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 0 var(--shadow, var(--color-blue));
+}
+
+/* Photo card with a solid colour offset, like a printed photo on a bright board */
+.pop {
+  border-radius: 28px;
+  box-shadow: 10px 10px 0 0 var(--pop, var(--color-lime));
+}
+
+:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee 28s linear infinite; }
+
+@keyframes wobble { 0%,100% { transform: rotate(var(--r, -6deg)); } 50% { transform: rotate(calc(var(--r, -6deg) + 4deg)); } }
+.wobble { animation: wobble 4s ease-in-out infinite; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(24px) rotate(var(--r, 0deg)); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
+
+/* ---------- Glassmorphism on a bright white page ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 20px 50px -18px rgba(45, 91, 255, 0.35);
+}
+.glass-soft {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Hero bento grid: named areas so tiles can be rearranged in one place */
+.hero-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 150px;
+  grid-template-areas:
+    "a a"
+    "a a"
+    "g g"
+    "g g"
+    "b c"
+    "d e"
+    "d f";
+}
+@media (min-width: 768px) {
+  .hero-grid {
+    gap: 16px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: minmax(150px, 21vh) minmax(150px, 21vh) minmax(260px, 29vh);
+    grid-template-areas:
+      "a a a a a b b b c c c c"
+      "a a a a a d d e e f f f"
+      "g g g g g d d e e f f f";
+  }
+}
